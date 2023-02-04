@@ -44,6 +44,3 @@ def draw():
     p5.fill(20,10,220,90)
     p5.rectMode(p5.CENTER)
     p5.rect(210,260,60,60)
-
-
-
