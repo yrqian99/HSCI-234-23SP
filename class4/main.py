@@ -1,4 +1,5 @@
 #press w and s to move forwad and backward
+#hover mouse over walle's belly to change color
 
 import js
 p5 = js.window
