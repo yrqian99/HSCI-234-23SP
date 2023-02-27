@@ -68,6 +68,14 @@ def draw():
         p5.stroke(255, 0, 127)
         random_square_at(175, 175, size)
 
+    p5.push()
+    p5.translate(0,0)
+    for i in range (2):
+        p5.stroke(127, 0, 255)
+        random_square_at(0, 0, size*(i+1))
+    p5.pop()
+
+
 
 #3. Write a function definition random_square(size) to draw a random size square.
 def random_square(size):
@@ -86,6 +94,7 @@ def random_square_at(x, y, size):
     p5.translate(x, y)
     random_square(size)
     p5.pop()
+
 
 #10. Write a function definition inside_square that returns True if the cursor is inside a square.
 def is_inside_rect(x, y):
