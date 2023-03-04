@@ -103,7 +103,7 @@ def mousePressed(event):
 def keyReleased(event):
     pass
 
-def mousePressed(event):
+def keyPressed(event):
     pass
 
 def mouseReleased(event):
