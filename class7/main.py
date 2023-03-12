@@ -135,10 +135,8 @@ def keyPressed(event):
     # print(int(player_3.x))
     pass
 
-
 def keyReleased(event):
     pass
-
 
 def mousePressed(event):
     player_2.set_point(new_x=p5.mouseX, new_y=p5.mouseY)
