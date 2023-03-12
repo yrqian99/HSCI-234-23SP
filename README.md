@@ -9,3 +9,4 @@ click . to enter editor mode
 <a href="https://yrqian99.github.io/HSCI-234-23SP/class4/">class4</a><br />
 <a href="https://yrqian99.github.io/HSCI-234-23SP/class5/">class5</a><br />
 <a href="https://yrqian99.github.io/HSCI-234-23SP/class6/">class6</a><br />
+<a href="https://yrqian99.github.io/HSCI-234-23SP/class7/">class7</a><br />
