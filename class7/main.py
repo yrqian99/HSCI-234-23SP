@@ -42,6 +42,7 @@ class Player:
         p5.noStroke()
         p5.push()
         p5.translate(self.x, self.y)
+        p5.scale(0.5)
         # red square
         p5.fill(250, 8, 64)
         p5.rect(150, 30, 20, 20)
@@ -117,8 +118,17 @@ def draw():
     player_3.draw()
     p5.stroke(0)
     p5.strokeWeight(1)
-    p5.line(player_2.x, player_2.y , player_3.x, player_3.y)
+    p5.line(player_2.x+ 50, player_2.y+ 50 , player_3.x+ 50, player_3.y+ 50)
+    d = p5.dist(player_2.x+ 50, player_2.y+ 50 , player_3.x+ 50, player_3.y+ 50)
+    p5.textSize(42)
+    if d < 60:
+        p5.text('boom', player_2.x, player_2.y)
+    p5.scale(2)
+    p5.textSize(12)
+    p5.text('(' + str(d) + ')', 10, 10)
     p5.pop()
+
+
 
 
 def keyPressed(event):
