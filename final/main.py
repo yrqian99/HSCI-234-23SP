@@ -4,7 +4,7 @@ p5 = js.window
 # to use images in a program follow 3 steps: 
 # 1. copy image files to the same directory as main.py 
 # 2. assign images to variables with p5.loadImage function 
-img1 = p5.loadImage('images\test.png');  # load image data to img1
+img1 = p5.loadImage('test.png');  # load image data to img1
 
 def setup():
     p5.createCanvas(300, 300)   
