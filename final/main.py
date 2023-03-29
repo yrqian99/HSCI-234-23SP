@@ -1,103 +1,119 @@
+from righthand import *
+from pupil import *
+from lefthandAndLens import *
+from dialogue import *
+
+
 import js
 p5 = js.window
 
 eye1 = p5.loadImage('images/eyeopen1.png')  
 eye2 = p5.loadImage('images/eyeopen2.png')  
-eye3 = p5.loadImage('images/eyeopen3.png')  
-lefthand = p5.loadImage('images/lefthand.png')  
-pupil = p5.loadImage('images/pupil.png')  
-contact_lens_right = p5.loadImage('images/contact_lens_right.png')  
-
-class Pupil:
-    def __init__(self, x=0, y=0):
-        self.x = x
-        self.y = y
-        self.img = pupil
-
-    def draw(self):
-        follow_x = p5.mouseX - 215
-        follow_y = p5.mouseY - 215
-        self.x = follow_x / 50
-        self.y = follow_y/ 50
-        p5.image(self.img, self.x, self.y)
-
-    def show_self_pos(self):
-        p5.text(str(self.x) + ", " + str(self.y), 10, 45)
-
-class LeftHand:
-    def __init__(self, x=0, y=0):
-        self.x = x
-        self.y = y
-        self.img = lefthand
-
-    def draw(self):
-        self.x = p5.mouseX - 260
-        self.y = p5.mouseY - 130
-        if self.x > 0:
-            self.x = 0
-        else:
-            self.x = p5.mouseX - 260
-        p5.image(self.img, self.x, self.y, 280, 280)
+eye3 = p5.loadImage('images/eyeopen3.png')
+eye4 = p5.loadImage('images/eyeopen4.png')
 
 
-    def show_self_pos(self):
-        p5.text(str(self.x) + ", " + str(self.y), 10, 45)
+contact_lens_state = 'right'
 
-class ContactLensRight(LeftHand):
-    def __init__(self, x=0, y=0):
-        self.x = x
-        self.y = y
-        self.img = contact_lens_right
 
 lefthand = LeftHand()
+righthand = RightHand()
 pupil = Pupil()
 contact_lens_right = ContactLensRight()
+valid_area = False
+
+next_wink = 0
+wink_interval = p5.random(1000, 3000)
+
+prepare_dialogue = PrepareDialogue()
+approaching_dialogue = ApproachingDialogue()
+
+in_game_state = 'prepare' # prepare, approaching, ready, finish
 
 def setup():
     p5.createCanvas(300, 300)
     p5.imageMode(p5.CORNER)
 
-next_wink = 0
-wink_interval = p5.random(1000, 3000)
-
 def draw():
-    global next_wink, wink_interval
+    global next_wink, wink_interval, valid_area, in_game_state
     p5.background(255)
 
 #pupil follows mouse
     pupil.draw()
-    # pupil.show_self_pos()
 
+#update pupil when mousepressed
+    if valid_area == True:
+        # in_game_state = 'approaching'
+        if contact_lens_right.wearing_right_lens == True:
+            if righthand.visible == True:
+                in_game_state = 'ready'
+                if pupil.update_pupil():
+                    in_game_state = 'finish'
+                    contact_lens_right.visible = False
+
+#right hand disappears after 2 seconds
+    if righthand.visible == True and p5.millis() - righthand.space_press_time > 2000:
+        p5.image(eye1, 0, 0)
+
+    if righthand.visible == True and p5.millis() - righthand.space_press_time < 2000:
+        p5.image(eye4, 0, 0)
 
 #eye wink and speed up when finger touches eye
-    if p5.millis() > next_wink:
-        switchImage()
-        next_wink = p5.millis() + wink_interval
-    else:
-        p5.image(eye3, 0, 0)
+    if righthand.visible == False:
+        if p5.millis() > next_wink:
+            switchImage()
+            next_wink = p5.millis() + wink_interval
+        else:
+            p5.image(eye3, 0, 0)
 
+#show hands
+    righthand.draw()
     lefthand.draw()
-    contact_lens_right.draw()
 
-    lefthand.show_self_pos()
+#show contact lens
+    if contact_lens_right.visible == True:
+        contact_lens_right.draw()
 
+    # lefthand.show_self_pos()
+    # pupil.show_self_pos()
+
+#warning when finger get closer to eye
     if -110 < lefthand.x < 40 and -40 < lefthand.y < 130:
-        p5.text("You touched my eye!", 10, 60)
         wink_interval = 200
+        valid_area = True
+        if in_game_state == 'prepare':
+            in_game_state = 'approaching'
     else:
         wink_interval = p5.random(1000, 3000)
+        valid_area = False
+        if in_game_state == 'approaching':
+            in_game_state = 'prepare'
+
+# #show dialogue
+    if in_game_state == 'prepare':
+        prepare_dialogue.update()
+        prepare_dialogue.draw(0, 0)
+        # print(prepare_dialogue.current_dialog)
+    elif in_game_state == 'approaching':
+        approaching_dialogue.update()
+        approaching_dialogue.draw(0, 0)
+        # print(approaching_dialogue.current_dialog)
 
 
-    #showing mouse position on screen
-    p5.text(str(p5.mouseX) + ", " + str(p5.mouseY), 10, 30)
+
+
+# #showing mouse position on screen
+#     p5.text(str(p5.mouseX) + ", " + str(p5.mouseY), 10, 30)
     
-# showing millis() on screen
-    p5.text(str(p5.millis()), 10, 15)
+# # showing millis() on screen
+#     p5.text(str(p5.millis()), 10, 15)
+
+
 
 
 #switch between images eye1, eye2, eye3 every 333 milliseconds
 def switchImage():
-    global eye1, eye2, eye3
+    global eye1, eye2, eye3, eye4
 
     if p5.millis() % 1000 < 333:
         p5.image(eye1, 0, 0)
@@ -106,14 +122,33 @@ def switchImage():
     else:
         p5.image(eye3, 0, 0)
 
+
 def keyPressed(event):
-    pass
+    global contact_lens_state
+
+    if p5.keyCode == 32:
+        righthand.visible = True
+        righthand.space_press_time = p5.millis()
+
+    if p5.keyCode == 83:
+        contact_lens_right.switch_image()
+
+
 
 def keyReleased(event):
-    pass
+    if p5.keyCode == 32:
+        righthand.visible = False
 
 def mousePressed(event):
-    pass
+    # if pupil.blue_visible == False:
+    #     pupil.switch_pupil()
+    #     pupil.blue_visible = True
+    print('mousePressed')
+    pupil.start_mouse_press_timer()
+    print('mouse has been pressed for', pupil.mouse_press_time, 'milliseconds')
+
+    
+    
 
 def mouseReleased(event):
-    pass
+    pupil.mouse_press_time = None
