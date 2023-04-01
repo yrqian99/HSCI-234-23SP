@@ -53,7 +53,7 @@ class Instructions():
             if p5.mouseIsPressed and 140 < p5.mouseX < 300 and 226 < p5.mouseY < 263:
                 global game_state
                 game_state = 'in_game'
-                print('game_state is: ' + game_state)
+                # print('game_state is: ' + game_state)
         
 
 
