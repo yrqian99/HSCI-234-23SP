@@ -1,4 +1,4 @@
-
+from main import *
 
 import js
 p5 = js.window
@@ -26,7 +26,7 @@ class Pupil:
 
     def update_pupil(self):
         if p5.mouseIsPressed and self.mouse_press_time != None:
-            if p5.millis() - self.mouse_press_time > 1000:
+            if p5.millis() - self.mouse_press_time > 3000:
                 self.switch_pupil()
                 self.mouse_press_time = None
                 return True

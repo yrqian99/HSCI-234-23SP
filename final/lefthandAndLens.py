@@ -11,19 +11,22 @@ class LeftHand:
         self.y = y
         self.img = lefthand
 
-
     def draw(self):
         self.x = p5.mouseX - 260
-        self.y = p5.mouseY - 130
+
+        if p5.mouseIsPressed:
+            self.y -= 0.1  
+            if self.y < -130:
+                self.y = -130
+        else:
+            self.y = p5.mouseY - 130
+
         if self.x > 0:
             self.x = 0
         else:
             self.x = p5.mouseX - 260
         p5.image(self.img, self.x, self.y, 280, 280)
 
-    # def move_to_target(self, target_x, target_y, t):
-    #     self.x = p5.lerp(self.x, target_x, t)
-    #     self.y = p5.lerp(self.y, target_y, t)
 
     def show_self_pos(self):
         p5.text('left hand position is: '+ str(self.x) + ", " + str(self.y), 10, 45)
@@ -43,6 +46,6 @@ class ContactLensRight(LeftHand):
         if self.img == self.img_wrong:
             self.img = self.img_right
             self.wearing_right_lens = True
-        elif self.img == self.img_wrong:
+        elif self.img == self.img_right:
             self.img = self.img_wrong
             self.wearing_right_lens = False

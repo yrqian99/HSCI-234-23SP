@@ -41,10 +41,69 @@ class PrepareDialogue(Dialogue):
 class ApproachingDialogue(Dialogue):
     def __init__(self, x=0, y=0):
         self.dialogues = [
-            'Hey! you almost poke my eye!',
+            'Dont hurt me please...',
             'Will I be blind?',
             'nonononono...',
             'Watch out...'
         ]
         self.switch_interval = 1000
         super().__init__(x, y)
+
+class ReadyDialogue(Dialogue):
+    def __init__(self, x=0, y=0):
+        self.dialogues = [
+            'AHHHHHHHHHHHHHHHHHHHHHH'
+        ]
+        self.switch_interval = 2000
+        super().__init__(x, y)
+
+class FinishDialogue(Dialogue):
+    def __init__(self, x=0, y=0):
+        self.dialogues = [
+            'You did it! Finally!',
+            'Am I looking good now?',
+            'I know I could trust you!'
+        ]
+        self.switch_interval = 2000
+        super().__init__(x, y)
+
+class WrongAreaDialogue(Dialogue):
+    def __init__(self, x=0, y=0):
+        self.dialogues = [
+            'Why are you so far away from me?',
+            'You should come closer to me!',
+        ]
+        self.switch_interval = 2000
+        super().__init__(x, y)
+
+class WrongLensDialogue(Dialogue):
+    def __init__(self, x=0, y=0):
+        self.dialogues = [
+            'Did you read the guide?',
+            'Can I trust you with this?',
+        ]
+        self.switch_interval = 2000
+        super().__init__(x, y)
+
+class WrongConditionDialogue(Dialogue):
+    def __init__(self, x=0, y=0):
+        self.dialogues = [
+            'I dont think Im ready yet!!',
+            'Not yet, not yet, not yet!!',
+        ]
+        self.switch_interval = 2000
+        super().__init__(x, y)
+
+class ReadyDialogue2(Dialogue):
+    def __init__(self, x=0, y=0):
+        self.dialogues = [
+            'NOW!!'
+        ]
+        self.switch_interval = 1000
+        super().__init__(x, y)
+
+
+
+
+
+
