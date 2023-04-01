@@ -11,11 +11,27 @@
       }
     </script>
     <style>
-      body {
-        background-color: #000000;
-        /*background-color: #aaaaaa;*/
-      }
-      
+        body {
+          background-color: #000000;
+          margin: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        }
+
+        h1 {
+          color: #ffffff;
+          font-family: Arial, sans-serif; 
+          font-size: 16px; 
+          text-align: center; 
+          margin-top: 20px; 
+          position: absolute; 
+          top: 0; 
+          left: 50%; 
+          transform: translateX(-50%); 
+        }
+
       py-repl {
           position: absolute;
           top: 45px;
@@ -103,7 +119,10 @@
       </style>
   </head>
   <body>
-    
+
+    <div>
+      <h1>Wearing Contact Lens For Your Panicking Friend</h1></div>
+
     <py-config type="toml">
         [[fetch]]
         files = [
