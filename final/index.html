@@ -12,7 +12,7 @@
     </script>
     <style>
       body {
-        background-color: #efefef;
+        background-color: #000000;
         /*background-color: #aaaaaa;*/
       }
       
@@ -71,9 +71,9 @@
       .p5Canvas
       {
         position: absolute;
-        left: 10px;
-        top: 45px;
-        float: left;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
       }
       .refresh-btn
       {
@@ -149,20 +149,20 @@
       run()
     </py-script>
 
-    <py-repl id="code"></py-repl>
+    <!-- <py-repl id="code"></py-repl> -->
     
     <script>
       function setup() {}
       code = document.getElementById("code")
       var client = new XMLHttpRequest();
       client.open('GET', './main.py');
-      client.onreadystatechange = function() {
-        code.innerHTML = client.responseText;
-      }
+      // client.onreadystatechange = function() {
+      //   code.innerHTML = client.responseText;
+      // }
       client.send();
     </script>
 
-    <div class="refresh-btn">
+    <!-- <div class="refresh-btn">
       <button id="reload-sketch" py-click="reload_sketch()">Refresh Canvas</button>
     </div>
     <div class="save-btn">
@@ -171,6 +171,6 @@
     <div class="load-btn">
       <button id="load-code" py-click="load_code()">Load from Memory</button>
     </div>
-    
+     -->
   </body>
 </html>

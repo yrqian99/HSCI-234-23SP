@@ -125,11 +125,8 @@ def draw():
             if contact_lens_right.wearing_right_lens == True:
                 if righthand.visible == True:
                     if eye.img == eye4:
-                        print('NOW!! What are you waiting for??')
                         if pupil.update_pupil():
                             contact_lens_right.visible = False
-                    else: 
-                        print('NOT YET!!')
 
     # #right hand disappears after 2 seconds
         eye.react_to_right_hand()
@@ -254,7 +251,7 @@ def keyPressed(event):
         righthand.space_press_time = p5.millis()
 
     if p5.keyCode == 83:
-        print('key "S" Pressed')
+        # print('key "S" Pressed')
         contact_lens_right.switch_image()
 
 
@@ -267,9 +264,9 @@ def mousePressed(event):
     # if pupil.blue_visible == False:
     #     pupil.switch_pupil()
     #     pupil.blue_visible = True
-    print('mousePressed')
+    # print('mousePressed')
     pupil.start_mouse_press_timer()
-    print('mouse has been pressed for', pupil.mouse_press_time, 'milliseconds')
+    # print('mouse has been pressed for', pupil.mouse_press_time, 'milliseconds')
 
 
 def mouseReleased(event):
